@@ -14,14 +14,11 @@ class DSV(Gtk.Window):
                 screen, provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
             )
 
-            css = b"""
-            entry {
-                border: none;
-                box-shadow: none;
-                border-radius: 0;
-                background: black;   
-            }
-            """
+            css = ""
+            with open('main.css', 'r') as file:
+                css = file.read()
+                css = bytes(css, 'utf-8')
+            
             provider.load_from_data(css)
 
             self.entry = Gtk.Entry()
