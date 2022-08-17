@@ -1,43 +1,36 @@
-import gi
-gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk, Gdk
-from Intro import Intro
+import sys
+import random
+from PySide6 import QtCore, QtWidgets, QtGui
+from PySide6.QtGui import QFont
+from IntroText import IntroText
 
-class DSV(Gtk.Window):
+class DSV(QtWidgets.QWidget):
     def __init__(self):
-        Gtk.Window.__init__(self)
+        super().__init__()
 
-        def setBackground():
-            screen = Gdk.Screen.get_default()
-            provider = Gtk.CssProvider()
-            style_context = Gtk.StyleContext()
-            style_context.add_provider_for_screen(
-                screen, provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
-            )
+        self.setStyleSheet("background-color: black;")
+        self.introText = IntroText("Designed By Christopher Francisco", self)
 
-            css = ""
-            with open('main.css', 'r') as file:
-                css = file.read()
-                css = bytes(css, 'utf-8')
-            
-            provider.load_from_data(css)
+        self.showFullScreen()
+        self.__width = self.frameGeometry().width()
+        self.__height = self.frameGeometry().height()
+        
+        self.__configureIntroText()
 
-            self.entry = Gtk.Entry()
-            self.entry.set_name("myentry")
-            self.add(self.entry)
+    def __configureIntroText(self):
+        self.introText.setTextColor("white")
+        self.introText.setBackgroundColor("red")
+        self.introText.reSize(self.__getWidth(0.5), self.__getHeight(0.1))
+        self.introText.reLocate(self.__getWidth(0.25), self.__getHeight((1.0 - 0.1) * 0.5))
+        self.introText.setFontSize(self.__getHeight((1.0 - 0.1) * 0.05))
 
-        def setIntro():
-            intro = Intro()
-            self.add(intro)
+    def __getWidth(self, factor):
+        return factor * self.__width
 
-        setIntro()
-        setBackground()
+    def __getHeight(self, factor):
+        return factor * self.__height
 
-
-        self.fullscreen()
-        self.connect("destroy", Gtk.main_quit)
-        self.show_all()
-        Gtk.main()
-
-if __name__ == '__main__':
+if __name__ == "__main__":
+    app = QtWidgets.QApplication([])
     dsv = DSV()
+    sys.exit(app.exec())
