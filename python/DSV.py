@@ -1,6 +1,7 @@
 import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, Gdk
+from Intro import Intro
 
 class DSV(Gtk.Window):
     def __init__(self):
@@ -25,7 +26,14 @@ class DSV(Gtk.Window):
             self.entry.set_name("myentry")
             self.add(self.entry)
 
+        def setIntro():
+            intro = Intro()
+            self.add(intro)
+
+        setIntro()
         setBackground()
+
+
         self.fullscreen()
         self.connect("destroy", Gtk.main_quit)
         self.show_all()
