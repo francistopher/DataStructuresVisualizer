@@ -5,5 +5,5 @@
 ## To Do
 
 ### Python 
-    [ ] - Present Intro Screen
-    [ ] - Present and Create Main Menu Screen
+    - [ ] Present Intro Screen
+    - [ ] Present and Create Main Menu Screen
